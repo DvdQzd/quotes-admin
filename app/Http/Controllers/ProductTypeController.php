@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
-use App\Models\Phone;
-use App\Models\Email;
+use App\Models\ProductType;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class ProductTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::with('orders')->paginate(15);
-        return view('customer.index', ['customers' => $customers]);
+        //
     }
 
     /**
@@ -27,7 +24,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create');
+        //
     }
 
     /**
@@ -38,26 +35,16 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $customer = Customer::create([
-            'name' => $request->name,
-            'lastName' => $request->lastName,
-            'documentId' => $request->documentId,
-            'address' => $request->address
-        ]);
-        
-        $customer->phones()->save(new Phone(['value' => $request->phone]));
-        $customer->emails()->save(new Email(['value' => $request->email]));
-        
-        return view('customer.index', ['status' => 'ok']);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show(ProductType $productType)
     {
         //
     }
@@ -65,10 +52,10 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit(ProductType $productType)
     {
         //
     }
@@ -77,10 +64,10 @@ class CustomerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, ProductType $productType)
     {
         //
     }
@@ -88,10 +75,10 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Customer  $customer
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy(ProductType $productType)
     {
         //
     }

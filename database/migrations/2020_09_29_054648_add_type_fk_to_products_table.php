@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhonesTable extends Migration
+class AddTypeFkToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreatePhonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('phones', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('customer_id');
-            $table->string('value');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreign('type_id')->references('id')->on('product_types');
         });
     }
 
@@ -29,6 +25,8 @@ class CreatePhonesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phones');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropForeign('products_type_id_foreign');
+        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhonesTable extends Migration
+class AddCustomersFkToEmailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreatePhonesTable extends Migration
      */
     public function up()
     {
-        Schema::create('phones', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('customer_id');
-            $table->string('value');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('emails', function (Blueprint $table) {
+            $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
 
@@ -29,6 +25,8 @@ class CreatePhonesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phones');
+        Schema::table('emails', function (Blueprint $table) {
+            $table->dropForeign('emails_customer_id_foreign');
+        });
     }
 }

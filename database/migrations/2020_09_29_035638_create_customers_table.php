@@ -20,6 +20,7 @@ class CreateCustomersTable extends Migration
             $table->string('documentId');
             $table->string('address');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
