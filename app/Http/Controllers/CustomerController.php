@@ -16,8 +16,12 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::with('orders')->paginate(15);
-        return view('customer.index', ['customers' => $customers]);
+        $customers = Customer::paginate(15);
+        // dd($customers);
+        return view('customer.index', [
+            'customers' => $customers,
+            'header' => 'Clientes'
+        ]);
     }
 
     /**
@@ -59,7 +63,10 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customer.show', [
+            'customer' => $customer->load(['orders', 'phones', 'emails']),
+            'header' => "Detalles de {$customer->name} {$customer->lastName}"
+            ]);
     }
 
     /**

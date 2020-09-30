@@ -25,6 +25,10 @@ class Order extends Model
     ];
 
     function details () {
-        return $this->hasMany('App/Model/OrderDetail');
+        return $this->hasMany(OrderDetail::class);
+    }
+
+    function customer () {
+        return $this->belongsTo(Customer::class);
     }
 }

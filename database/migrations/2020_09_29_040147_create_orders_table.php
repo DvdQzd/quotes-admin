@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->boolean('installation');
             $table->string('notes');
             $table->string('status');
+            $table->unsignedInteger('customer_id');
             $table->timestamps();
             $table->softDeletes();
         });

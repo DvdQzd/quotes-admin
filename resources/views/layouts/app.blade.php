@@ -31,7 +31,11 @@
 
             <!-- Page Content -->
             <main>
+                @if (!empty($slot)) 
                 {{ $slot }}
+                @endif
+                @yield('customer-index')
+                @yield('customer-show')
             </main>
         </div>
 

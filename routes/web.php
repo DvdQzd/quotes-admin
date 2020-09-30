@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +26,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/users', function () {
     return view('users');
 })->name('users');
 
-Route::resource('/customer', 'CustomerController')->middleware(['auth:sanctum', 'verified']);
+Route::resource('/customer', CustomerController::class)->middleware(['auth:sanctum', 'verified']);

@@ -23,6 +23,6 @@ class Email extends Model
     ];
 
     function customer () {
-        return $this->belongsTo('App/Models/Customer');
+        return $this->belongsTo(Customer::class);
     }
 }

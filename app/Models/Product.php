@@ -24,10 +24,10 @@ class Product extends Model
     ];
 
     function details () {
-        return $this->hasMany('App/Model/OrderDetail');
+        return $this->hasMany(OrderDetail::class);
     }
 
     function type () {
-        return $this->belongsTo('App/Model/ProductType');
+        return $this->belongsTo(ProductType::class);
     }
 }

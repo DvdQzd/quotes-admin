@@ -26,10 +26,10 @@ class OrderDetail extends Model
     ];
 
     function product () {
-        return $this->belongsTo('App/Model/Product');
+        return $this->belongsTo(Product::class);
     }
 
     function order () {
-        return $this->belongsTo('App/Model/Order');
+        return $this->belongsTo(Order::class);
     }
 }

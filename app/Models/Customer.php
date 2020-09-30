@@ -25,10 +25,14 @@ class Customer extends Model
     ];
 
     function phones () {
-        return $this->hasMany('App/Models/Phone');
+        return $this->hasMany(Phone::class);
     }
 
     function emails () {
-        return $this->hasMany('App/Models/Email');
+        return $this->hasMany(Email::class);
+    }
+
+    function orders () {
+        return $this->hasMany(Order::class);
     }
 }
