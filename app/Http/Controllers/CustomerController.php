@@ -14,13 +14,24 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($searchText, $message = null)
     {
-        $customers = Customer::paginate(15);
-        // dd($customers);
+        if (!$searchText) {
+            $customers = Customer::paginate(15);
+        } else {
+            $searchText = strtolower($searchText);
+            $customers = Customer::whereRaw(
+                            "LOWER(CONCAT(customers.name, ' ',customers.\"lastName\")) LIKE ?",
+                            ["%{$searchText}%"])
+                            ->orWhere('documentId', 'like', "%{$searchText}%")
+                            ->paginate(15);
+        }
+
+        
         return view('customer.index', [
             'customers' => $customers,
-            'header' => 'Clientes'
+            'header' => 'Clientes',
+            'message' => $message
         ]);
     }
 
@@ -31,7 +42,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create');
+        return view('customer.create', ['header' => 'Nuevo cliente']);
     }
 
     /**
@@ -52,7 +63,7 @@ class CustomerController extends Controller
         $customer->phones()->save(new Phone(['value' => $request->phone]));
         $customer->emails()->save(new Email(['value' => $request->email]));
         
-        return view('customer.index', ['status' => 'ok']);
+        return $this->index('Cliente ingresado correctamente');
     }
 
     /**

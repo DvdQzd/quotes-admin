@@ -27,3 +27,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/users', function () {
 })->name('users');
 
 Route::resource('/customer', CustomerController::class)->middleware(['auth:sanctum', 'verified']);
+Route::get('/customer/search/{searchText}', [CustomerController::class, 'index']);

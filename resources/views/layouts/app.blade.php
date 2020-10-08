@@ -36,6 +36,7 @@
                 @endif
                 @yield('customer-index')
                 @yield('customer-show')
+                @yield('customer-create')
             </main>
         </div>
 
