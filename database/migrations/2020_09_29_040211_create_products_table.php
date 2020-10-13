@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('base_price');
-            $table->unsignedInteger('type_id');
+            $table->unsignedInteger('product_type_id');
             $table->timestamps();
             $table->softDeletes();
         });

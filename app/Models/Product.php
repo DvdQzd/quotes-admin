@@ -14,7 +14,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'base_price',
-        'type_id'
+        'product_type_id'
     ];
 
     protected $dates = [
@@ -23,11 +23,11 @@ class Product extends Model
         'deleted_at'
     ];
 
-    function details () {
+    function orderDetails () {
         return $this->hasMany(OrderDetail::class);
     }
 
-    function type () {
+    function productType () {
         return $this->belongsTo(ProductType::class);
     }
 }

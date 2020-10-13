@@ -24,7 +24,7 @@ class Order extends Model
         'deleted_at'
     ];
 
-    function details () {
+    function orderDetails () {
         return $this->hasMany(OrderDetail::class);
     }
 

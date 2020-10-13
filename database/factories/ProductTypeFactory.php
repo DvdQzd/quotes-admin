@@ -22,7 +22,7 @@ class ProductTypeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->regexify('(vidrio|otro)')
         ];
     }
 }

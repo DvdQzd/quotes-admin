@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/users', function () {
 
 Route::resource('/customer', CustomerController::class)->middleware(['auth:sanctum', 'verified']);
 Route::get('/customer/search/{searchText}', [CustomerController::class, 'index']);
+
+Route::resource('/order', OrderController::class)->middleware(['auth:sanctum', 'verified']);

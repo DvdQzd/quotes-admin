@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\OrderDetail;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderDetailFactory extends Factory
@@ -22,7 +23,10 @@ class OrderDetailFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'width' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
+            'height' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
+            'price' => $this->faker->numberBetween($min = 1000, $max = 9000),
+            'product_id' => $this->faker->numberBetween($min = 1, $max = 5)
         ];
     }
 }

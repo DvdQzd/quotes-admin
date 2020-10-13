@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Phone;
 use App\Models\Email;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCustomer;
 
 class CustomerController extends Controller
 {
@@ -17,16 +18,11 @@ class CustomerController extends Controller
     public function index($searchText, $message = null)
     {
         if (!$searchText) {
-            $customers = Customer::paginate(15);
+            $customers = Customer::paginate(10);
         } else {
             $searchText = strtolower($searchText);
-            $customers = Customer::whereRaw(
-                            "LOWER(CONCAT(customers.name, ' ',customers.\"lastName\")) LIKE ?",
-                            ["%{$searchText}%"])
-                            ->orWhere('documentId', 'like', "%{$searchText}%")
-                            ->paginate(15);
+            $customers = (new Customer)->search($searchText);
         }
-
         
         return view('customer.index', [
             'customers' => $customers,
@@ -51,19 +47,14 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCustomer $request)
     {
-        $customer = Customer::create([
-            'name' => $request->name,
-            'lastName' => $request->lastName,
-            'documentId' => $request->documentId,
-            'address' => $request->address
-        ]);
+        $customer = Customer::create($request->validated());
         
         $customer->phones()->save(new Phone(['value' => $request->phone]));
         $customer->emails()->save(new Email(['value' => $request->email]));
         
-        return $this->index('Cliente ingresado correctamente');
+        return $this->index(null,'Cliente ingresado correctamente');
     }
 
     /**

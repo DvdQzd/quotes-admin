@@ -14,7 +14,7 @@ class AddTypeFkToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->foreign('type_id')->references('id')->on('product_types');
+            $table->foreign('product_type_id')->references('id')->on('product_types');
         });
     }
 
@@ -26,7 +26,7 @@ class AddTypeFkToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign('products_type_id_foreign');
+            $table->dropForeign('products_product_type_id_foreign');
         });
     }
 }

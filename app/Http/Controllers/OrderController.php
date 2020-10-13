@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -46,7 +47,10 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('order.show', [
+            'order' => $order->load(['customer', 'orderDetails.product']),
+            'header' => "Detalles de la orden #{$order['id']}"
+            ]);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
+use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -22,7 +23,9 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->word,
+            'base_price' => $this->faker->numberBetween($min = 1000, $max = 9000),
+            'product_type_id' => $this->faker->numberBetween($min = 1, $max = 2)
         ];
     }
 }

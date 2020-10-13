@@ -35,4 +35,12 @@ class Customer extends Model
     function orders () {
         return $this->hasMany(Order::class);
     }
+
+    function search ($searchText) {
+        return Self::whereRaw(
+            "LOWER(CONCAT(customers.name, ' ',customers.\"lastName\")) LIKE ?",
+            ["%{$searchText}%"])
+            ->orWhere('documentId', 'like', "%{$searchText}%")
+            ->paginate(15);
+    }
 }

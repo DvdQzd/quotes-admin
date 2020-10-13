@@ -22,9 +22,9 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->firstName,
             'lastName' => $this->faker->lastName,
-            'documentId' => $this->faker->randomNumber($nbDigits = NULL, $strict = false),
+            'documentId' => $this->faker->unique(true)->numberBetween(1, 999999999),
             'address' => $this->faker->address
         ];
     }
