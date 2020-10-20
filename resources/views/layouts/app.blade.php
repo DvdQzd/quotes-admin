@@ -24,6 +24,12 @@
 	 <!--Responsive Extension Datatables CSS-->
 <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+  crossorigin="anonymous"></script>
+
 <style>
 		
 		/*Overrides for Tailwind CSS */
@@ -106,8 +112,10 @@
                 {{ $slot }}
                 @endif
                 @yield('customer-index')
+                @yield('order-index')
                 @yield('customer-show')
                 @yield('customer-create')
+                @yield('order-create')
             </main>
         </div>
 
@@ -117,7 +125,7 @@
     </body>
 
 <!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 		
         <!--Datatables -->
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>

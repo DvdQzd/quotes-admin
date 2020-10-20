@@ -30,4 +30,10 @@ class Product extends Model
     function productType () {
         return $this->belongsTo(ProductType::class);
     }
+
+    function searchAutoComplete ($searchText) {
+      return Self::select('id', 'products.name')
+	->where('name', 'like', "%{$searchText}%")
+	->get();
+    } 
 }

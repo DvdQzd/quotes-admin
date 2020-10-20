@@ -21,7 +21,7 @@ class CustomerController extends Controller
             $customers = Customer::paginate(10);
         } else {
             $searchText = strtolower($searchText);
-            $customers = (new Customer)->search($searchText);
+            $customers = (new Customer)->searchPaginated($searchText);
         }
         
         return view('customer.index', [

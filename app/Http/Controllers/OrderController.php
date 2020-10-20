@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Customer;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -13,9 +15,16 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($message = null)
     {
-        //
+        $orders = Order::with('customer')
+                    ->orderBy('deadline', 'desc')
+                    ->paginate(5);
+        return view('order.index', [
+            'orders' => $orders,
+            'header' => 'Ordenes',
+            'message' => $message
+        ]);
     }
 
     /**
@@ -25,7 +34,11 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+	$products = Product::all();
+	return view('order.create', [
+	  'header' => 'Nueva orden',
+	  'products' => $products
+	]);
     }
 
     /**
@@ -36,7 +49,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+	// return getFinalPrice(1, 2, 4, 6);
+      //$order = new Order();
+	$details = [];
+	for($i = 0; $i < count($request->details['products']); $i++) {
+	  $details[$request->details['products'][$i]] = [
+	    'width' => $request->details['widths'][$i],
+	    'height' => $request->details['heights'][$i]
+	  ];
+	}
+
+	//$order->deadline = $request->deadline;
+	//$order->installation = $request->installation;
+	//$order->notes = $request->notes;
+	//$order->customer_id = $request->customer_id;
+
     }
 
     /**
