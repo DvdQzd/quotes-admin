@@ -36,4 +36,10 @@ class Product extends Model
 	->where('name', 'like', "%{$searchText}%")
 	->get();
     } 
+
+    function getPrice($id) {
+      return Self::select('base_price')
+	  ->where('id', $id)
+	  ->first()->base_price;
+    }
 }

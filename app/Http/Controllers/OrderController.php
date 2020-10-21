@@ -49,8 +49,6 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-	// return getFinalPrice(1, 2, 4, 6);
-      //$order = new Order();
 	$details = [];
 	for($i = 0; $i < count($request->details['products']); $i++) {
 	  $details[$request->details['products'][$i]] = [
@@ -59,10 +57,36 @@ class OrderController extends Controller
 	  ];
 	}
 
-	//$order->deadline = $request->deadline;
-	//$order->installation = $request->installation;
-	//$order->notes = $request->notes;
-	//$order->customer_id = $request->customer_id;
+
+	$detailInstances = [];
+	foreach ($details as $product_id => $values) {
+	  $detailInstances[] = new OrderDetail([
+	    'product_id' => $product_id,
+	    'width' => $values['width'],
+	    'height' => $values['height'],
+	    'price' => getFinalPrice(
+	      $values['width'],
+	      $values['height'],
+	      (new Product)->getPrice($product_id),
+	      5) // TODO: factor getter
+	  ]); 
+	} 
+
+
+	$order = new Order;
+	$order->deadline = $request->deadline;
+	$order->installation = $request->installation;
+	$order->notes = $request->notes;
+	$order->status = $request->status;
+	$order->customer_id = $request->customer_id;
+
+	$order->status = 'pending';
+
+	$order->save();
+	$order->orderDetails()->saveMany($detailInstances);
+
+	dd($order);
+
 
     }
 
