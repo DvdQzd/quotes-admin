@@ -18,7 +18,7 @@ class CustomerController extends Controller
     public function index($searchText, $message = null)
     {
         if (!$searchText) {
-            $customers = Customer::paginate(10);
+            $customers = Customer::orderBy('id', 'desc')->paginate(10);
         } else {
             $searchText = strtolower($searchText);
             $customers = (new Customer)->searchPaginated($searchText);

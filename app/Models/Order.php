@@ -31,4 +31,8 @@ class Order extends Model
     function customer () {
         return $this->belongsTo(Customer::class);
     }
+
+    function getOrdersByDeadline ($date) {
+	return $this->where('deadline', $date)->get();
+    }
 }

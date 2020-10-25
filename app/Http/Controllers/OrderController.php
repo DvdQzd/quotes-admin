@@ -18,7 +18,7 @@ class OrderController extends Controller
     public function index($message = null)
     {
         $orders = Order::with('customer')
-                    ->orderBy('deadline', 'desc')
+		    ->orderBy('id', 'desc')
                     ->paginate(5);
         return view('order.index', [
             'orders' => $orders,
@@ -85,8 +85,8 @@ class OrderController extends Controller
 	$order->save();
 	$order->orderDetails()->saveMany($detailInstances);
 
-	dd($order);
 
+	return $this->index('Orden ingresada correctamente');
 
     }
 

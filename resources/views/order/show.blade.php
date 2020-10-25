@@ -1,97 +1,7 @@
 @extends('layouts.app')
 
 @section('customer-show')
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.2/main.css">
-<script>
 
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridWeek',
-          events: [
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14',
-                color: 'red',
-                url: '1',
-                allDay: false
-
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14',
-                allDay: false
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-            { // this object will be "parsed" into an Event Object
-                title: 'Cumple Alan', // a property!
-                start: '2020-10-14', // a property!
-                end: '2020-10-14' // a property! ** see important note below about 'end' **
-            },
-        ]
-        });
-        calendar.render();
-      });
-
-    </script>
-    <div id='calendar'></div>
 <div class="flex bg-gray-200">
   <div class="flex-initial text-gray-200 text-center bg-gray-400 px-6 py-2 m-2">
   Fecha de entrega
@@ -114,6 +24,15 @@
   </div>
   <div class="flex-initial text-gray-200 text-center bg-gray-400 px-12 py-2 m-2">
   {{ $order->status }}
+  </div>
+</div>
+
+<div class="flex bg-gray-200">
+  <div class="flex-initial text-gray-200 text-center bg-gray-400 px-6 py-2 m-2">
+  Direccion
+  </div>
+  <div class="flex-initial text-gray-200 text-center bg-gray-400 px-12 py-2 m-2">
+  {{ $order->customer->address }}
   </div>
 </div>
 <div class="flex bg-gray-200">
