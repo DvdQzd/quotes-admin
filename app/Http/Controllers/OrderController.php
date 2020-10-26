@@ -7,6 +7,8 @@ use App\Models\OrderDetail;
 use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use PDF;
+use App\Mail\OrderCreated;
 
 class OrderController extends Controller
 {
@@ -137,4 +139,5 @@ class OrderController extends Controller
     {
         //
     }
+
 }
