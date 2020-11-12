@@ -27,3 +27,4 @@ Route::post('/customer/search', [CustomerController::class, 'search']);
 Route::post('/product/search', [ProductController::class, 'search']);
 
 Route::post('/order/send_mail/{id}', [OrderController::class, 'sendEmail']);
+Route::post('/order/check_day', [OrderController::class, 'checkIfDayIsFull']);

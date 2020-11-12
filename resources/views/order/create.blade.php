@@ -148,7 +148,6 @@
     </label>
   </div>
 
-</div>
   <div class="flex flex-wrap -mx-3 mb-2">
     <div class="w-full md:w-3/3 px-3 mb-6 md:mb-0">
       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
@@ -178,8 +177,15 @@
 
         <input name="details[widths][]" class="appearance-none md:w-1/3 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Ancho">
         <input name="details[heights][]" class="appearance-none md:w-1/3 block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Alto">
+    <label class="md:w-3/3 block text-gray-500 font-bold">
+      <input class="mr-2 leading-tight" name="details[frame][]" type="checkbox">
+      <span class="text-sm">
+        Incluye marco
+      </span>
+    </label>
       </span>
       
+    <div class="md:w-3/3"></div>
       <span id="aditionalFields"></span>
       <button class="shadow bg-green-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-1 px-2 rounded" type="button" onclick="addDetail()">
         Agregar producto
@@ -288,12 +294,16 @@
 
                   getDateValue(date) {
                       let selectedDate = new Date(this.year, this.month, date);
+                      console.log('selectedDate', selectedDate);
                       this.datepickerValue = selectedDate.toDateString();
+                      console.log('Month', selectedDate.getMonth());
 
-                      this.$refs.date.value = selectedDate.getFullYear() +"-"+ ('0'+ selectedDate.getMonth()).slice(-2) +"-"+ ('0' + selectedDate.getDate()).slice(-2);
+                      this.$refs.date.value = selectedDate.getFullYear() +"-"+ ('0'+ (selectedDate.getMonth() + 1) ).slice(-2) +"-"+ ('0' + selectedDate.getDate()).slice(-2);
 
-                      console.log(this.$refs.date.value);
+                      console.log('completeDate', this.$refs.date.value);
 
+                      console.log('checkDay', this.checkDay(this.$refs.date.value));
+                      
                       this.showDatepicker = false;
                   },
 
@@ -314,9 +324,48 @@
 
                       this.blankdays = blankdaysArray;
                       this.no_of_days = daysArray;
+                  },
+                  checkDay (dateToCheck) {
+                    // console.log(window.location.origin + '/api/order/check_day');
+                    if (dateToCheck) {
+                      // console.log('dateTOCheckl', dateToCheck);
+                      var request = new XMLHttpRequest();
+                      request.open('POST', window.location.origin + '/api/order/check_day', true);
+                      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+                      request.onreadystatechange = function() {
+                        // console.log('DONE? ', XMLHttpRequest.DONE);
+                        if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+                          console.log('succeed');
+                          console.log(request.responseText);
+                          if(JSON.parse(request.responseText)['result']){
+                            confirm('Dia seleccionado ya tiene limite de ordenes agendadas. Estas seguro de querer agendar?');
+                          }
+                          
+                          // myresponse.value = request.responseText;
+                        } else {
+                          const d = {
+                            readyState: this.readyState,
+                            status: this.status
+                          };
+                          console.log('server error', d);
+                        }
+                      };
+
+                      request.onerror = function() {
+                        console.log('something went wrong');
+                      };
+                      const data = {'date': dateToCheck};
+                      console.log('payload', data);
+
+                      request.send(JSON.stringify(data));
+                    }
+                    
                   }
               }
           }
+
+          
       </script>
     </div>
 <!-- </div> -->

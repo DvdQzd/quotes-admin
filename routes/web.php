@@ -16,7 +16,7 @@ use App\Http\Controllers\OrderController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/dashboard'); // while there's no landing page we're deridecting to the dashboard
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

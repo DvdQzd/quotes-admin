@@ -33,6 +33,6 @@ class Order extends Model
     }
 
     function getOrdersByDeadline ($date) {
-	return $this->where('deadline', $date)->get();
+	    return Self::whereDate('deadline', $date)->get();
     }
 }

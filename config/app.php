@@ -233,4 +233,6 @@ return [
 
     ],
 
+    'orders_per_day' => env('MAX_ORDERS_PER_DAY', 10),
+
 ];

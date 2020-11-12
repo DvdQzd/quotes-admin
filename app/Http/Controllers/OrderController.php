@@ -52,10 +52,12 @@ class OrderController extends Controller
     public function store(Request $request)
     {
 	$details = [];
+	return $request;
 	for($i = 0; $i < count($request->details['products']); $i++) {
 	  $details[$request->details['products'][$i]] = [
 	    'width' => $request->details['widths'][$i],
-	    'height' => $request->details['heights'][$i]
+	    'height' => $request->details['heights'][$i],
+	    'frame' => $request->details['frame'][$i]
 	  ];
 	}
 
@@ -66,11 +68,12 @@ class OrderController extends Controller
 	    'product_id' => $product_id,
 	    'width' => $values['width'],
 	    'height' => $values['height'],
+	    'frame' => $values['frame'],
 	    'price' => getFinalPrice(
 	      $values['width'],
 	      $values['height'],
-	      (new Product)->getPrice($product_id),
-	      5) // TODO: factor getter
+	      (new Product)->getPrice($product_id)
+	    )
 	  ]); 
 	} 
 

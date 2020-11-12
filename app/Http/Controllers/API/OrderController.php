@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use PDF;
 use App\Mail\OrderCreated;
 use App\Models\Order;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -90,5 +91,13 @@ class OrderController extends Controller
 
     private static function getTotal ($orderDetails) {
       return array_sum($orderDetails->pluck('price')->all());
+    }
+
+    public function checkIfDayIsFull (Request $request) {
+        $maxOrdersPerDay = config('app.orders_per_day');
+        $orders = (new Order)->getOrdersByDeadline($request->date);
+        return response()->json([
+            'result' => count($orders) >= $maxOrdersPerDay
+        ]);
     }
 }
